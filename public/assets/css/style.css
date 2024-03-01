@@ -10019,4 +10019,7 @@ footer .nav-link {
 .icon-handshake:before {
   content: '';
 }
+.trumbowyg-editor ul li{
+  list-style: disc;
+}
 /* '' */
