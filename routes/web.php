@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\JobsController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +23,13 @@ Route::get('/jobs', [JobsController::class, 'index'])->name('jobs');
 Route::get('/jobs/detail/{id}', [JobsController::class, 'jobDetails'])->name('jobdetails');
 Route::post('/job-apply', [JobsController::class, 'applyJob'])->name('applyJob');
 Route::post('/save-job',[JobsController::class,'saveJob'])->name('saveJob');
+
+//Admin Group
+Route::group(['prefix' => 'admin', 'middleware' => 'checkRole'], function(){
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/users', [UserController::class, 'index'])->name('admin.users');
+});
+
 
 Route::group(['prefix' => 'account'], function(){
     Route::group(['middleware' => 'guest'], function(){
