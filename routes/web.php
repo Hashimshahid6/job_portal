@@ -28,6 +28,8 @@ Route::post('/save-job',[JobsController::class,'saveJob'])->name('saveJob');
 Route::group(['prefix' => 'admin', 'middleware' => 'checkRole'], function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/users', [UserController::class, 'index'])->name('admin.users');
+    Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::post('/users/{id}', [UserController::class, 'update'])->name('admin.users.update');
 });
 
 
