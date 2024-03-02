@@ -20,6 +20,7 @@
                 @include('front.message')
                 <div class="card border-0 shadow mb-4">
                     <form name="userForm" id="userForm" method="POST" action="">
+                        @csrf
                         <div class="card-body  p-4">
                             <h3 class="fs-4 mb-1">My Profile</h3>
                             <div class="mb-4">

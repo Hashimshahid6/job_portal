@@ -36,6 +36,7 @@
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Mobile</th>
+                                        <th scope="col">Role</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -49,6 +50,7 @@
                                             </td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->mobile }}</td>
+                                            <td>{{ $user->role }}</td>
                                             
                                             <td>
                                                 <div class="action-dots ">
@@ -80,18 +82,22 @@
 
 @section('customJS')
 <script type="text/javascript">
-    function deleteUser(id) {
-        if(confirm("Are you sure you want to delete?")) {
-            $.ajax({
-                // url: '{{ route("admin.users.destroy") }}',
-                type: 'delete',
-                data: { id: id},
-                dataType: 'json',
-                success: function(response) {
-                    window.location.href = "{{ route('admin.users') }}";
-                }
-            });
-        }
+function deleteUser(id) {
+    if(confirm("Are you sure you want to delete?")) {
+        $.ajax({
+            url: '{{ route("admin.users.destroy") }}',
+            type: 'delete',
+            data: 
+            {
+            "_token": "{{ csrf_token() }}",
+            "id": id
+            },
+            dataType: 'json',
+            success: function(response) {
+                window.location.href = "{{ route('admin.users') }}";
+            }
+        });
     }
+}
 </script>
 @endsection

@@ -125,7 +125,7 @@
 </section>
 @endsection
 
-@section('customJs')
+@section('customJS')
 <script>
 $('#searchForm').on('submit', function(e){
     e.preventDefault();

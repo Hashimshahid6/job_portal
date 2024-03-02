@@ -88,24 +88,23 @@
 
 @section('customJS')
 <script type="text/javascript">
-    function deleteJob(id){
-        if(confirm('Are you sure you want to delete this job?')){
-            $.ajax({
-
-                url: '{{ route("account.deleteJob", ' + $job->id + ') }}',
-                type: "POST",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "id": id
-                },
-                dataType: "json",
-                success: function(response){
-                    if(response.status == 'success'){
-                        windows.href = '{{route("account.myJobs")}}';
-                    }
+function deleteJob(id){
+    if(confirm('Are you sure you want to delete this job?')){
+        $.ajax({
+            url: '{{ route("account.deleteJob", ' + $job->id + ') }}',
+            type: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "id": id
+            },
+            dataType: "json",
+            success: function(response){
+                if(response.status == 'success'){
+                    windows.href = '{{route("account.myJobs")}}';
                 }
-            });
-        }
+            }
+        });
     }
+}
 </script>
 @endsection
