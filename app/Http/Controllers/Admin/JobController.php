@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class JobController extends Controller
 {
     public function adminJobs(){
-        $jobs = Job::orderBy('created_at', 'desc')->with('user')->paginate(10);
+        $jobs = Job::orderBy('created_at', 'desc')->with('user', 'applications')->paginate(10);
         return view('admin.jobs.list', compact('jobs'));
     }//
 
@@ -58,8 +58,8 @@ class JobController extends Controller
             $job->company_name = $request->company_name;
             $job->company_location = $request->company_location;
             $job->company_website = $request->company_website;
-            // $job->status = $request->status;
-            // $job->isFeatured = (!empty($request->isFeatured)) ? $request->isFeatured : 0;
+            $job->status = $request->status;
+            $job->isFeatured = (!empty($request->isFeatured)) ? $request->isFeatured : 0;
             $job->save();
 
             session()->flash('success','Job updated successfully.');

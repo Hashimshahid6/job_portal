@@ -76,8 +76,7 @@
                                     <p></p>
                                 </div>
                             </div>
-                            {{-- <div class="row">
-                                
+                            <div class="row">
                                 <div class="mb-4 col-md-6">
                                     <div class="form-check">
                                         <input {{ ($job->isFeatured == 1) ? 'checked' : '' }} class="form-check-input" type="checkbox" value="1" id="isFeatured" name="isFeatured">
@@ -100,7 +99,7 @@
                                         </label>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Description<span class="req">*</span></label>
                                 <textarea class="textarea" name="description" id="description" cols="5" rows="5" placeholder="Description">{{$job->description}}</textarea>

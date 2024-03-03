@@ -34,6 +34,8 @@
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Title</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">isFeatured</th>
                                         <th scope="col">Created By</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">Action</th>
@@ -47,6 +49,20 @@
                                             <td>
                                                 <p>{{ $job->title }}</p>
                                                 <p>Applicants: {{$job->applications->count()}}</p>
+                                            </td>
+                                            <td>
+                                                @if($job->status == 1)
+                                                    <span class="badge bg-success">Active</span>
+                                                @else
+                                                    <span class="badge bg-danger">Inactive</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($job->isFeatured == 1)
+                                                    <span class="badge bg-success">Yes</span>
+                                                @else
+                                                    <span class="badge bg-danger">No</span>
+                                                @endif
                                             </td>
                                             <td>{{ $job->user->name }}</td>
                                             <td>{{ $job->created_at->format('d M, Y') }}</td>
