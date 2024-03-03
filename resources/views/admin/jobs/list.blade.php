@@ -103,7 +103,7 @@
 function deleteUser(id) {
     if(confirm("Are you sure you want to delete?")) {
         $.ajax({
-            url: '{{ route("admin.users.destroy") }}',
+            url: '{{ route("admin.jobs.destroy") }}',
             type: 'delete',
             data: 
             {
@@ -112,7 +112,7 @@ function deleteUser(id) {
             },
             dataType: 'json',
             success: function(response) {
-                window.location.href = "{{ route('admin.users') }}";
+                window.location.href = "{{ route('admin.jobs') }}";
             }
         });
     }
