@@ -1,4 +1,5 @@
 @extends('front.layouts.app')
+
 @section('main')
 <section class="section-5 bg-2">
     <div class="container py-5">
@@ -6,15 +7,16 @@
             <div class="col">
                 <nav aria-label="breadcrumb" class=" rounded-3 p-3 mb-4">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Account Settings</li>
+                        <li class="breadcrumb-item"><a href="{{ route("admin.dashboard") }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route("admin.jobs") }}">Jobs</a></li>
+                        <li class="breadcrumb-item active">Edit</li>
                     </ol>
                 </nav>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-3">
-                @include('front.account.sidebar')
+                @include('admin.sidebar')
             </div>
             <div class="col-lg-9">
                 @include('front.message')
@@ -74,7 +76,31 @@
                                     <p></p>
                                 </div>
                             </div>
-
+                            {{-- <div class="row">
+                                
+                                <div class="mb-4 col-md-6">
+                                    <div class="form-check">
+                                        <input {{ ($job->isFeatured == 1) ? 'checked' : '' }} class="form-check-input" type="checkbox" value="1" id="isFeatured" name="isFeatured">
+                                        <label class="form-check-label" for="isFeatured">
+                                            Featured
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-4 col-md-6">
+                                    <div class="form-check-inline">
+                                        <input {{ ($job->status == 1) ? 'checked' : '' }} class="form-check-input" type="radio" value="1" id="status-active" name="status">
+                                        <label class="form-check-label" for="status">
+                                            Active
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <input {{ ($job->status == 0) ? 'checked' : '' }} class="form-check-input" type="radio" value="0" id="status-block" name="status">
+                                        <label class="form-check-label" for="status">
+                                            Block
+                                        </label>
+                                    </div>
+                                </div>
+                            </div> --}}
                             <div class="mb-4">
                                 <label for="" class="mb-2">Description<span class="req">*</span></label>
                                 <textarea class="textarea" name="description" id="description" cols="5" rows="5" placeholder="Description">{{$job->description}}</textarea>
@@ -142,7 +168,7 @@
                             <button type="submit" class="btn btn-primary">Update Job</button>
                         </div>
                     </div>   
-                </form>            
+                </form>                              
             </div>
         </div>
     </div>
@@ -155,7 +181,7 @@ $("#editJobForm").submit(function(e){
     e.preventDefault();
     $("button[type='submit']").prop('disabled', true);
     $.ajax({
-        url: '{{ route("account.updateJob", $job->id) }}',
+        url: '{{ route("admin.jobs.update", $job->id) }}',
         type: 'POST',
         dataType: 'json',
         data: $('#editJobForm').serialize(),
@@ -236,8 +262,7 @@ $("#editJobForm").submit(function(e){
                 siblings('p')
                 .removeClass('invalid-feedback')
                 .html('');
-                window.location.href = '{{ route("account.myJobs") }}';
-
+                window.location.href = "{{ route('admin.jobs') }}";
             }else{
                 if(response.errors.title){
                     $('#title').addClass('is-invalid').

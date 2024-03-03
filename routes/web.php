@@ -33,6 +33,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'checkRole'], function(){
     Route::post('/users/{id}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/users', [UserController::class, 'destroy'])->name('admin.users.destroy');
     Route::get('/jobs', [JobController::class, 'adminJobs'])->name('admin.jobs');
+    Route::get('/jobs/edit/{id}', [JobController::class, 'edit'])->name('admin.jobs.edit');
+    Route::post('/jobs/{id}', [JobController::class, 'update'])->name('admin.jobs.update');
+
 });
 
 

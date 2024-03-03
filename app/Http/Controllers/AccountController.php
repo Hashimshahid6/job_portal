@@ -246,7 +246,6 @@ class AccountController extends Controller
 
         if ($validator->passes()) {
             $job = Job::find($id);
-            // $job->user_id = Auth::user()->id;
             $job->title = $request->title;
             $job->category_id = $request->category;
             $job->job_type_id = $request->jobType;
@@ -264,7 +263,12 @@ class AccountController extends Controller
             $job->company_location = $request->company_location;
             $job->company_website = $request->company_website;
             $job->save();
-            return redirect('/account/my-jobs')->with('success', 'Job updated successfully');
+
+            session()->flash('success','Job updated successfully.');
+            return response()->json([
+                'status' => true,
+                'errors' => [],
+            ]);
         } 
         else 
         {
