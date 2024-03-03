@@ -32,48 +32,31 @@
                             <table class="table ">
                                 <thead class="bg-light">
                                     <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">isFeatured</th>
-                                        <th scope="col">Created By</th>
-                                        <th scope="col">Date</th>
+                                        <th scope="col">Job Title</th>
+                                        <th scope="col">User</th>
+                                        <th scope="col">Employer</th>
+                                        <th scope="col">Applied Date</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="border-0">
-                                    @if($jobs->count() > 0)
-                                        @foreach($jobs as $job)
+                                    @if($applications->count() > 0)
+                                        @foreach($applications as $application)
                                         <tr>
-                                            <td>{{ $job->id }}</td>
                                             <td>
-                                                <p>{{ $job->title }}</p>
-                                                <p>Applicants: {{$job->applications->count()}}</p>
+                                                <p>{{ $application->job->title }}</p>
+                                                {{-- <p>Applicants: {{$job->applications->count()}}</p> --}}
                                             </td>
-                                            <td>
-                                                @if($job->status == 1)
-                                                    <span class="badge bg-success">Active</span>
-                                                @else
-                                                    <span class="badge bg-danger">Inactive</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if($job->isFeatured == 1)
-                                                    <span class="badge bg-success">Yes</span>
-                                                @else
-                                                    <span class="badge bg-danger">No</span>
-                                                @endif
-                                            </td>
-                                            <td>{{ $job->user->name }}</td>
-                                            <td>{{ $job->created_at->format('d M, Y') }}</td>
+                                            <td>{{ $application->user->name }}</td>
+                                            <td>{{ $application->employer->name }}</td>
+                                            <td>{{\Carbon\Carbon::parse($application->applied_date)->format('d M, Y')}}</td>
                                             <td>
                                                 <div class="action-dots ">
                                                     <button href="#" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
                                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item" href="{{route('admin.jobs.edit', $job->id)}}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a></li>
-                                                        <li><a class="dropdown-item" href="javascript:void(0);" onclick="deleteJob({{ $job->id }})" ><i class="fa fa-trash" aria-hidden="true"></i> Delete</a></li>
+                                                        <li><a class="dropdown-item" href="javascript:void(0);" onclick="deleteJobApplication({{ $application->id }})" ><i class="fa fa-trash" aria-hidden="true"></i> Delete</a></li>
                                                     </ul>
                                                 </div>
                                             </td>
@@ -88,7 +71,7 @@
                             </table>
                         </div>
                         <div>
-                            {{ $jobs->links() }}
+                            {{ $applications->links() }}
                         </div>
                     </div>
                 </div>                          
@@ -100,22 +83,22 @@
 
 @section('customJS')
 <script type="text/javascript">
-function deleteJob(id) {
-    if(confirm("Are you sure you want to delete?")) {
-        $.ajax({
-            url: '{{ route("admin.jobs.destroy") }}',
-            type: 'delete',
-            data: 
-            {
-            "_token": "{{ csrf_token() }}",
-            "id": id
-            },
-            dataType: 'json',
-            success: function(response) {
-                window.location.href = "{{ route('admin.jobs') }}";
-            }
-        });
-    }
-}
+// function deleteJobApplication(id) {
+//     if(confirm("Are you sure you want to delete?")) {
+//         $.ajax({
+//             url: '{{ route("admin.jobs.destroy") }}',
+//             type: 'delete',
+//             data: 
+//             {
+//             "_token": "{{ csrf_token() }}",
+//             "id": id
+//             },
+//             dataType: 'json',
+//             success: function(response) {
+//                 window.location.href = "{{ route('admin.jobs') }}";
+//             }
+//         });
+//     }
+// }
 </script>
 @endsection
