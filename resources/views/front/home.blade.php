@@ -1,5 +1,4 @@
 @extends('front.layouts.app')
-
 @section('main')
 <section class="section-0 lazy d-flex bg-image-style dark align-items-center" style="background-image: url('{{asset('assets/images/banner5.jpg')}}');">
     <div class="container">
